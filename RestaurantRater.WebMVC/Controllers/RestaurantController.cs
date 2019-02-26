@@ -49,5 +49,24 @@ namespace RestaurantRater.WebMVC.Controllers
             }
             return View(restaurant);
         }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Restaurant restaurant = db.Restaurants.Find(id);
+            db.Restaurants.Remove(restaurant);
+            db.SaveChanges();
+            return RedirectToAction("index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
